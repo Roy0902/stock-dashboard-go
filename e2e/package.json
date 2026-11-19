@@ -1,0 +1,22 @@
+{
+  "name": "stock-dashboard-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Playwright acceptance smoke for the Go + React stock dashboard.",
+  "scripts": {
+    "pretest": "node scripts/build-app.mjs",
+    "build:app": "node scripts/build-app.mjs",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "typecheck": "tsc --noEmit",
+    "report": "playwright show-report",
+    "install:browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^24.0.0",
+    "otplib": "^13.6.0",
+    "typescript": "^5.9.0"
+  }
+}

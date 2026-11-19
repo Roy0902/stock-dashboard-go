@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "command": "finalize",
+  "status": "pass",
+  "type": "sequence",
+  "quality": "showcase",
+  "specification": {
+    "path": "C:\\Users\\pigcr\\Documents\\Workspace\\.archify\\sequence-login-hash-flow-20261119-092634\\candidate.json",
+    "sha256": "f1d803784f4a20635eceec836c361a139d78a243d4a4c3e745ea6cb1ecac5b0b",
+    "bytes": 7941
+  },
+  "artifact": {
+    "path": "C:\\Users\\pigcr\\Documents\\Workspace\\.archify\\sequence-login-hash-flow-20261119-092634\\login-function-flow.html",
+    "sha256": "d8e86ec97d2215ba9b55d274fb06237328663a8aa9f76129a4c5036859816a42",
+    "bytes": 854859
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "pass"
+  },
+  "diagnostics": [],
+  "diagnosticSummary": {
+    "total": 0,
+    "shown": 0,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\pigcr\\Documents\\Workspace\\.archify\\sequence-login-hash-flow-20261119-092634\\login-function-flow.finalize.json",
+    "summaryReceipt": "C:\\Users\\pigcr\\Documents\\Workspace\\.archify\\sequence-login-hash-flow-20261119-092634\\login-function-flow.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\pigcr\\Documents\\Workspace\\.archify\\sequence-login-hash-flow-20261119-092634\\login-function-flow.browser-check.json"
+  },
+  "visualReview": "not-requested",
+  "durationMs": 8971,
+  "browserCheck": {
+    "requested": true,
+    "ran": true
+  }
+}

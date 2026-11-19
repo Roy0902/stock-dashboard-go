@@ -1,0 +1,28 @@
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: stock-dashboard:local
+    container_name: stock-dashboard
+    ports:
+      # Publish on the host loopback only. The container listens on 0.0.0.0 internally.
+      - "127.0.0.1:3000:3000"
+    environment:
+      PORT: "3000"
+      DATA_DIR: /data
+      BIND_HOST: 0.0.0.0
+      AUTH_COOKIE_SECURE: "false"
+      FINNHUB_API_KEY: ${FINNHUB_API_KEY:-}
+      TWELVEDATA_API_KEY: ${TWELVEDATA_API_KEY:-}
+      FINNHUB_BASE_URL: ${FINNHUB_BASE_URL:-https://finnhub.io}
+      TWELVEDATA_BASE_URL: ${TWELVEDATA_BASE_URL:-https://api.twelvedata.com}
+    volumes:
+      - dashboard-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    restart: unless-stopped
+
+volumes:
+  dashboard-data:

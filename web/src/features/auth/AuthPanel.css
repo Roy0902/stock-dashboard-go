@@ -1,0 +1,116 @@
+.auth-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-block: clamp(1.5rem, 5vw, 4rem);
+  isolation: isolate;
+}
+
+.auth-page::before {
+  position: absolute;
+  z-index: -1;
+  top: -12rem;
+  left: 50%;
+  width: min(46rem, 120vw);
+  height: 32rem;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, var(--color-accent-soft), transparent 68%);
+  content: '';
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.auth-page__brand {
+  margin-bottom: var(--space-6);
+}
+
+.auth-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
+  font-size: var(--text-base);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.auth-brand__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface-raised);
+  color: var(--color-accent);
+}
+
+.auth-brand__mark svg {
+  width: 22px;
+  height: 22px;
+}
+
+.auth-brand:hover .auth-brand__name {
+  color: var(--color-accent);
+}
+
+.auth-panel {
+  width: 100%;
+  max-width: 26rem;
+  padding: clamp(1.5rem, 4vw, 2rem);
+}
+
+.auth-panel--wide {
+  max-width: 34rem;
+}
+
+.auth-panel__heading {
+  font-size: clamp(1.5rem, 2.4vw, 1.75rem);
+  font-weight: 680;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.auth-panel__heading:focus,
+.auth-panel__subheading:focus {
+  /* Programmatic focus for screen readers; a ring on a static heading is noise. */
+  outline: none;
+}
+
+.auth-panel__subheading {
+  margin-top: var(--space-4);
+  font-size: var(--text-lg);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.auth-panel__lede {
+  margin-top: 6px;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.auth-page__note {
+  margin-top: var(--space-5);
+  color: var(--color-text-faint);
+  font-size: var(--text-xs);
+}
+
+@media (max-width: 400px) {
+  .auth-panel {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .auth-page__brand {
+    margin-bottom: var(--space-4);
+  }
+}

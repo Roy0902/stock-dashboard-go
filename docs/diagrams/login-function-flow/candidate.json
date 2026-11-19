@@ -1,0 +1,365 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Login and password-hash upgrade — function flow",
+    "subtitle": "POST /api/auth/login through PBKDF2 verification, legacy Argon2id upgrade, TOTP and session issue",
+    "output": "docs/diagrams/login-function-flow/login-function-flow.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "participants": [
+    {
+      "id": "browser",
+      "type": "frontend",
+      "label": "Browser SPA",
+      "sublabel": "React login form"
+    },
+    {
+      "id": "middleware",
+      "type": "backend",
+      "label": "API middleware",
+      "sublabel": "host + Origin guard"
+    },
+    {
+      "id": "handler",
+      "type": "backend",
+      "label": "Auth handler",
+      "sublabel": "api/auth.go"
+    },
+    {
+      "id": "service",
+      "type": "security",
+      "label": "Auth service",
+      "sublabel": "budgets + challenges"
+    },
+    {
+      "id": "kdf",
+      "type": "security",
+      "label": "Password KDF",
+      "sublabel": "PBKDF2 + legacy"
+    },
+    {
+      "id": "totp",
+      "type": "security",
+      "label": "TOTP",
+      "sublabel": "6 digits, ±1 step"
+    },
+    {
+      "id": "store",
+      "type": "backend",
+      "label": "User store",
+      "sublabel": "users.go"
+    },
+    {
+      "id": "sqlite",
+      "type": "database",
+      "label": "SQLite",
+      "sublabel": "stock-dashboard.db"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 640,
+      "label": "Password login + hash upgrade"
+    },
+    {
+      "from": 646,
+      "to": 950,
+      "label": "TOTP + session"
+    }
+  ],
+  "messages": [
+    {
+      "id": "login-request",
+      "from": "browser",
+      "to": "middleware",
+      "y": 160,
+      "label": "POST /api/auth/login",
+      "variant": "emphasis"
+    },
+    {
+      "id": "origin-pass",
+      "from": "middleware",
+      "to": "handler",
+      "y": 188,
+      "label": "Host + Origin pass"
+    },
+    {
+      "id": "call-login",
+      "from": "handler",
+      "to": "service",
+      "y": 216,
+      "label": "Login(username, password)"
+    },
+    {
+      "id": "find-user",
+      "from": "service",
+      "to": "store",
+      "y": 244,
+      "label": "FindByUsername",
+      "note": "reserves the failure/global budget and one verify slot"
+    },
+    {
+      "id": "select-user",
+      "from": "store",
+      "to": "sqlite",
+      "y": 292,
+      "label": "SELECT users WHERE username"
+    },
+    {
+      "id": "user-row",
+      "from": "sqlite",
+      "to": "store",
+      "y": 320,
+      "label": "row",
+      "variant": "return"
+    },
+    {
+      "id": "account-record",
+      "from": "store",
+      "to": "service",
+      "y": 348,
+      "label": "account record",
+      "variant": "return"
+    },
+    {
+      "id": "verify-password",
+      "from": "service",
+      "to": "kdf",
+      "y": 376,
+      "label": "VerifyPassword(hash, password)",
+      "variant": "security"
+    },
+    {
+      "id": "verify-result",
+      "from": "kdf",
+      "to": "service",
+      "y": 404,
+      "label": "match / mismatch",
+      "variant": "return"
+    },
+    {
+      "id": "upgrade-hash",
+      "from": "service",
+      "to": "store",
+      "y": 432,
+      "label": "Update password hash",
+      "note": "only when the stored hash is legacy Argon2id"
+    },
+    {
+      "id": "update-user",
+      "from": "store",
+      "to": "sqlite",
+      "y": 480,
+      "label": "UPDATE users SET password_hash"
+    },
+    {
+      "id": "update-commit",
+      "from": "sqlite",
+      "to": "store",
+      "y": 508,
+      "label": "committed",
+      "variant": "return"
+    },
+    {
+      "id": "update-ok",
+      "from": "store",
+      "to": "service",
+      "y": 536,
+      "label": "ok",
+      "variant": "return"
+    },
+    {
+      "id": "challenge",
+      "from": "service",
+      "to": "handler",
+      "y": 564,
+      "label": "challenge token + TTL",
+      "variant": "return"
+    },
+    {
+      "id": "login-response",
+      "from": "handler",
+      "to": "browser",
+      "y": 592,
+      "label": "200 + sd_challenge cookie",
+      "variant": "return"
+    },
+    {
+      "id": "totp-request",
+      "from": "browser",
+      "to": "handler",
+      "y": 650,
+      "label": "POST /api/auth/login/totp",
+      "variant": "emphasis"
+    },
+    {
+      "id": "complete-totp",
+      "from": "handler",
+      "to": "service",
+      "y": 678,
+      "label": "CompleteTOTP(token, code)"
+    },
+    {
+      "id": "validate-totp",
+      "from": "service",
+      "to": "totp",
+      "y": 706,
+      "label": "ValidateTOTP(secret, code)",
+      "variant": "security"
+    },
+    {
+      "id": "totp-result",
+      "from": "totp",
+      "to": "service",
+      "y": 734,
+      "label": "step / invalid",
+      "variant": "return"
+    },
+    {
+      "id": "persist-step",
+      "from": "service",
+      "to": "store",
+      "y": 762,
+      "label": "Update lastTotpStep"
+    },
+    {
+      "id": "update-step",
+      "from": "store",
+      "to": "sqlite",
+      "y": 790,
+      "label": "UPDATE users SET last_totp_step"
+    },
+    {
+      "id": "step-commit",
+      "from": "sqlite",
+      "to": "store",
+      "y": 818,
+      "label": "committed",
+      "variant": "return"
+    },
+    {
+      "id": "step-ok",
+      "from": "store",
+      "to": "service",
+      "y": 846,
+      "label": "ok",
+      "variant": "return"
+    },
+    {
+      "id": "session",
+      "from": "service",
+      "to": "handler",
+      "y": 874,
+      "label": "session + user",
+      "variant": "return"
+    },
+    {
+      "id": "totp-response",
+      "from": "handler",
+      "to": "browser",
+      "y": 902,
+      "label": "200 + Set-Cookie sd_session",
+      "variant": "return"
+    }
+  ],
+  "activations": [
+    {
+      "participant": "middleware",
+      "from": 155,
+      "to": 620,
+      "type": "backend"
+    },
+    {
+      "participant": "handler",
+      "from": 157,
+      "to": 915,
+      "type": "backend"
+    },
+    {
+      "participant": "service",
+      "from": 210,
+      "to": 890,
+      "type": "security"
+    },
+    {
+      "participant": "store",
+      "from": 238,
+      "to": 565,
+      "type": "backend"
+    },
+    {
+      "participant": "sqlite",
+      "from": 286,
+      "to": 545,
+      "type": "database"
+    },
+    {
+      "participant": "kdf",
+      "from": 370,
+      "to": 410,
+      "type": "security"
+    },
+    {
+      "participant": "totp",
+      "from": 700,
+      "to": 740,
+      "type": "security"
+    },
+    {
+      "participant": "store",
+      "from": 755,
+      "to": 855,
+      "type": "backend"
+    },
+    {
+      "participant": "sqlite",
+      "from": 785,
+      "to": 825,
+      "type": "database"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "New hash path",
+      "items": [
+        "PBKDF2-HMAC-SHA256, 600,000 iterations",
+        "16-byte random salt, 32-byte key",
+        "CPU-only; no 64 MiB per-hash work area"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Legacy upgrade",
+      "items": [
+        "Argon2id records still verify",
+        "Successful password login rewrites them to PBKDF2",
+        "A failed rewrite is ignored and retried next login"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Gates and session",
+      "items": [
+        "5 failures / 15 min; 60 global attempts / min; 2 verify slots",
+        "5-minute challenge; TOTP step replay rejected",
+        "12 h absolute / 30 min idle session"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Source slice",
+      "items": [
+        "server/internal/api/auth.go - authLogin / authLoginTOTP",
+        "server/internal/auth/service.go - Login / CompleteTOTP",
+        "server/internal/auth/password.go - PBKDF2 + legacy verify",
+        "server/internal/store/users.go - FindByUsername / Update",
+        "server/internal/store/store.go - SQLite open",
+        "web/src/features/auth/LoginPage.tsx - submitCredentials"
+      ]
+    }
+  ]
+}

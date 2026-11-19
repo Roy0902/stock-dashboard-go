@@ -1,0 +1,9 @@
+{
+  "feature": "stock-watchlist-followup-01",
+  "planSha256": "df4e2c61874e464b90442dab0ca3a77a981ea239fd381f62bc0e32fe77a2fd1e",
+  "frozenAt": "2026-11-17T02:07:31.449Z",
+  "tests": {
+    "tests/api/stock-watchlist-followup-01.spec.ts": "8e5900f5aeba51908ad27ae20872e31804ae434321038c4ca35dcc7276f90d3e"
+  },
+  "testsLockedAt": "2026-11-17T02:07:32.085Z"
+}

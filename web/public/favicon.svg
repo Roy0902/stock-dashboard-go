@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Stock dashboard">
+  <rect width="32" height="32" rx="8" fill="#101319" />
+  <path
+    d="M5 21.5 11.5 14l5 3.5L27 7"
+    fill="none"
+    stroke="#7fa6ff"
+    stroke-width="2.25"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle cx="27" cy="7" r="2" fill="#7fa6ff" />
+</svg>

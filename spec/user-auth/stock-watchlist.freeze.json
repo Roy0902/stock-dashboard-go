@@ -1,0 +1,21 @@
+{
+  "feature": "stock-watchlist",
+  "planSha256": "7ed3f26e8c4015c81d96d1e35e4b777363759b41d1f9d315afc023ca2d955773",
+  "frozenAt": "2026-11-16T13:12:25.368Z",
+  "tests": {
+    "tests/api/stock-watchlist.spec.ts": "05b813cb6127683f8bfc8501d8377dcc3cf0e1a06fafc28dec9bfa539e8781a9",
+    "tests/specs/stock-watchlist.spec.ts": "44b07431e7760db5a1cf037499bddcc4e49bd7fbcba17675abbfbcc85e3b3e10"
+  },
+  "amendments": [
+    {
+      "amendedAt": "2026-11-17T01:47:53.406Z",
+      "reason": "Approved by user 2026-11-17: SCN-003 fresh state per example; SCN-019 exact match on the change value; SCN-027 fastForward(60_000); SCN-053 stack-trace pattern replaces substring check",
+      "previousTests": {
+        "tests/api/stock-watchlist.spec.ts": "ccd164c40f133135ce14473327ca49831002878ca1f288e2f6574c7d254c41ad",
+        "tests/specs/stock-watchlist.spec.ts": "e834f57b4becaa2a0277e538ef8947474fe02063cbf1176e0b54876f9258519b"
+      },
+      "previousTestsLockedAt": "2026-11-16T13:59:50.542Z"
+    }
+  ],
+  "testsLockedAt": "2026-11-17T01:47:54.339Z"
+}

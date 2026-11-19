@@ -1,0 +1,51 @@
+.price-chart-frame {
+  width: 100%;
+  min-width: 0;
+}
+
+.price-chart {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.price-chart__grid line {
+  stroke: var(--color-chart-grid);
+  stroke-width: 1;
+}
+
+.price-chart__axis-label {
+  fill: var(--color-chart-axis);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.price-chart__line {
+  stroke: var(--color-accent);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.price-chart__area {
+  pointer-events: none;
+}
+
+.price-chart__extreme-dot {
+  fill: var(--color-chart-dot);
+  stroke: var(--color-accent);
+  stroke-width: 2;
+}
+
+.price-chart__extreme-label {
+  fill: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.price-chart__dates .price-chart__axis-label {
+  font-size: 11.5px;
+}

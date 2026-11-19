@@ -1,0 +1,29 @@
+.chart-skeleton {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-skeleton);
+}
+
+/* PriceChart renders 300 px tall below a 560 px container, 380 px above it. */
+@container (max-width: 559px) {
+  .chart-skeleton {
+    height: 300px;
+  }
+}
+
+.chart-skeleton::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--color-skeleton-sheen), transparent);
+  content: '';
+  transform: translateX(-100%);
+  animation: chart-shimmer 1.4s var(--ease-out) infinite;
+}
+
+@keyframes chart-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

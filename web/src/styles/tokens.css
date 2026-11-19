@@ -1,0 +1,142 @@
+:root {
+  color-scheme: dark;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --font-mono:
+    ui-monospace, 'Cascadia Code', 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: clamp(1.75rem, 1.35rem + 1.7vw, 2.5rem);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-11: 2.75rem;
+  --space-12: 3rem;
+
+  /* Single source for the seven-column quote grid (header, row and skeleton). */
+  --watchlist-columns: minmax(72px, 0.8fr) minmax(86px, 0.75fr) minmax(104px, 0.95fr) 104px
+    minmax(88px, 0.8fr) minmax(144px, 1.2fr) 112px;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  --content-width: 1120px;
+
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --color-canvas: #08090b;
+  --color-canvas-soft: #0b0d11;
+  --color-surface: #101319;
+  --color-surface-raised: #151922;
+  --color-surface-hover: #191e28;
+  --color-input: #0c0f14;
+  --color-border: #232935;
+  --color-border-strong: #323b4b;
+  --color-text: #eef2f7;
+  --color-text-muted: #9aa4b2;
+  --color-text-faint: #8a94a3;
+
+  --color-accent: #7fa6ff;
+  --color-accent-strong: #a6c1ff;
+  --color-accent-contrast: #081020;
+  --color-accent-soft: rgba(127, 166, 255, 0.14);
+  --color-focus: #b8cdff;
+
+  --color-up: #16a34a;
+  --color-down: #dc2626;
+  --color-neutral: #6b7280;
+
+  --color-alert-bg: rgba(220, 38, 38, 0.1);
+  --color-alert-border: rgba(248, 113, 113, 0.34);
+  --color-alert-text: #fecaca;
+  --color-neutral-bg: rgba(127, 166, 255, 0.045);
+  --color-neutral-border: #2b3342;
+
+  --color-header-bg: rgba(8, 9, 11, 0.78);
+  --color-skeleton: rgba(238, 242, 247, 0.06);
+  --color-skeleton-sheen: rgba(238, 242, 247, 0.11);
+  --color-chart-grid: rgba(238, 242, 247, 0.08);
+  --color-chart-axis: #8b95a4;
+  --color-chart-dot: #101319;
+
+  --ambient-a: rgba(127, 166, 255, 0.1);
+  --ambient-b: rgba(56, 189, 248, 0.05);
+
+  --shadow-panel: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 20px 50px -32px rgba(0, 0, 0, 0.9);
+  --shadow-row: 0 1px 0 rgba(255, 255, 255, 0.025) inset, 0 10px 24px -22px rgba(0, 0, 0, 0.9);
+  --shadow-raised: 0 10px 24px -16px rgba(0, 0, 0, 0.8);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+
+    --color-canvas: #f2f5f9;
+    --color-canvas-soft: #e9eef5;
+    --color-surface: #ffffff;
+    --color-surface-raised: #f7f9fc;
+    --color-surface-hover: #f0f4fa;
+    --color-input: #fbfcfe;
+    --color-border: #e1e6ee;
+    --color-border-strong: #cbd3e0;
+    --color-text: #0e1626;
+    --color-text-muted: #58657a;
+    --color-text-faint: #647184;
+
+    --color-accent: #2f5fd0;
+    --color-accent-strong: #1e4bb8;
+    --color-accent-contrast: #ffffff;
+    --color-accent-soft: rgba(47, 95, 208, 0.1);
+    --color-focus: #1d4ed8;
+
+    /* >=4.5:1 on --color-surface (#ffffff) for 14 px text. */
+    --color-up: #15803d;
+    --color-down: #b91c1c;
+    --color-neutral: #4b5563;
+
+    --color-alert-bg: #fff1f2;
+    --color-alert-border: #fecdd3;
+    --color-alert-text: #881337;
+    --color-neutral-bg: rgba(47, 95, 208, 0.03);
+    --color-neutral-border: #d6dde8;
+
+    --color-header-bg: rgba(255, 255, 255, 0.82);
+    --color-skeleton: rgba(14, 22, 38, 0.065);
+    --color-skeleton-sheen: rgba(255, 255, 255, 0.7);
+    --color-chart-grid: rgba(14, 22, 38, 0.08);
+    --color-chart-axis: #5b6779;
+    --color-chart-dot: #ffffff;
+
+    --ambient-a: rgba(47, 95, 208, 0.07);
+    --ambient-b: rgba(14, 116, 144, 0.045);
+
+    --shadow-panel: 0 1px 2px rgba(16, 24, 40, 0.04), 0 20px 44px -30px rgba(16, 24, 40, 0.35);
+    --shadow-row: 0 1px 2px rgba(16, 24, 40, 0.035), 0 8px 22px -20px rgba(16, 24, 40, 0.3);
+    --shadow-raised: 0 8px 20px -14px rgba(16, 24, 40, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-base: 0.01ms;
+  }
+}

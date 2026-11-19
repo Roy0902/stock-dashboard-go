@@ -1,0 +1,32 @@
+.auth-splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 40vh;
+  color: var(--color-text-muted);
+}
+
+.auth-splash__mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 11px;
+  background:
+    linear-gradient(145deg, var(--color-accent-soft), transparent 70%), var(--color-surface-raised);
+  color: var(--color-accent);
+}
+
+.auth-splash__mark svg {
+  width: 23px;
+  height: 23px;
+}
+
+.auth-splash__name {
+  color: var(--color-text);
+  font-size: var(--text-base);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}

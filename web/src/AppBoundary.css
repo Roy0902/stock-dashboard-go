@@ -1,0 +1,6 @@
+.app-boundary {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  padding: var(--space-8) 0;
+}

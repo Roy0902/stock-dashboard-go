@@ -1,0 +1,16 @@
+.dashboard {
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.dashboard__empty {
+  justify-content: center;
+  padding: var(--space-8) var(--space-6);
+  border-style: dashed;
+  text-align: center;
+}
+
+.dashboard__empty .alert__message {
+  font-size: var(--text-base);
+}
