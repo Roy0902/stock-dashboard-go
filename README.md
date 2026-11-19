@@ -1,5 +1,8 @@
 # Stock Dashboard (Go + React)
 
+> Reviewing this as a work submission? Start with [`SUBMISSION.md`](SUBMISSION.md), then the
+> [five-minute demo](docs/submission/demo.md) and the [AI workflow](docs/submission/ai-workflow.md).
+
 A local stock watchlist with per-account watchlists. Go serves the API and persists state in
 SQLite; React renders the dashboard and the per-ticker daily chart. Quotes come from Finnhub
 with Twelve Data as fallback; charts come from Twelve Data.
