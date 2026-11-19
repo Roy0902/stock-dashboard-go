@@ -67,16 +67,21 @@ Full diagrams, including the quote-fallback sequence and deployment: [`docs/subm
 ## How AI was used
 
 The project was delivered through a **spec-first, review-gated loop** rather than one-shot
-generation:
+generation, across **two main sessions and 25 delegated agent runs**:
 
-- A frozen plan and contracts were written before code; acceptance tests were authored red first.
-- **Nine delegated agent runs** produced four independent reviews and five implementation passes.
-- Reviews were treated as evidence, not authority: every claim was re-checked, and two defects the
-  reviews themselves introduced were found and fixed in a final adversarial pass.
-- Verification was mechanical: Go vet/tests, 131 web tests, 33 Playwright journeys, a real Docker
-  build and a live container smoke test.
+| Phase | What happened |
+| :-- | :-- |
+| Spec | Requirements, domain model, scenarios and checklist frozen before code; acceptance tests authored red first |
+| Build (16 agents) | Go backend, React client, auth, multi-user SQLite, Docker; two-level review of code smells and edge cases |
+| Harden (9 agents) | Go, React/UX and security reviews, then scoped implementation passes and a final adversarial review |
+| Verify | Go vet/tests, 131 web tests, 33 Playwright journeys, Docker build and live container smoke |
 
-The full account, including the measured time span and token usage, is in
+Reviews were treated as evidence, not authority: every claim was re-checked, and two defects the
+implementation agents introduced were found and fixed in the final pass. The measured span is
+63.7 hours (the Go/React build occupies the final ~26), with ~891M recorded tokens across 27
+sessions — 95% of them cache reads, not fresh generation.
+
+The full account, including token breakdown and human decisions, is in
 [`docs/submission/ai-workflow.md`](docs/submission/ai-workflow.md).
 
 ## Verification evidence
@@ -101,6 +106,9 @@ Evidence and dispositions: [`docs/verification.md`](docs/verification.md),
 - **No UI remove control.** The contract exposes `DELETE /api/watchlist/{ticker}` and tests it;
   the frozen plan has no UI scenario for removal.
 - **Sessions live in memory.** A restart asks users to sign in again; only the SQLite data survives.
+- **PBKDF2 rather than Argon2id for new passwords.** Argon2 was replaced after evaluating memory
+  cost and denial-of-service exposure; PBKDF2-HMAC-SHA256 at 600,000 iterations is CPU-hard with
+  low memory. Legacy Argon2 hashes still verify and rehash on login.
 - **TOTP seeds are stored in SQLite in plaintext.** File permissions are `0600`, but encryption at
   rest needs a key-management decision. This is recorded, not hidden.
 - **`go test -race` is not in the default gate on this host** because cgo is unavailable; the

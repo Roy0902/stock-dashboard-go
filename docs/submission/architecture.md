@@ -3,6 +3,17 @@
 Companion to [`../architecture.md`](../architecture.md). These are the diagrams a reviewer can
 follow without reading the code.
 
+Key decisions visible in the diagrams:
+
+- **PBKDF2-HMAC-SHA256 (600,000 iterations) for new passwords**, chosen over Argon2id after
+  weighing memory cost and denial-of-service exposure; legacy Argon2 hashes verify and rehash.
+- **Mandatory TOTP and single-use recovery codes**, with each account owning a separate watchlist.
+- **SQLite is the only persisted state**; sessions and provider caches stay in memory.
+- **The client never recomputes derived quote values**; change, percent, direction and staleness
+  come from the API.
+- **The container is distroless and non-root**, listens on `0.0.0.0` internally and is published
+  only on host `127.0.0.1`.
+
 ## Components
 
 ```mermaid
